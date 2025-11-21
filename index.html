@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Pink Pastel</title>
+
+    <!-- Memuat Tailwind CSS untuk styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; /* Mengatur font utama menjadi Inter */
+        }
+
+        /* Efek klik pada tombol */
+        .btn-calc {
+            transition: all 0.1s ease-in-out; 
+        }
+        .btn-calc:active {
+            transform: scale(0.95); /* Saat ditekan, tombol sedikit mengecil */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-pink-200 to-pink-300 text-pink-900 min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-sm bg-pink-100 border border-pink-300 rounded-2xl shadow-2xl p-6 space-y-4">
+
+        <!-- Bagian header gambar kalkulator -->
+        <div>
+            <img id="statusImage" 
+                 src="https://placehold.co/400x100/FBCFE8/7E205F?text=Kalkulator+Riviera+1710624043" 
+                 alt="Status Kalkulator"
+                 class="w-full rounded-lg transition-all duration-300 ease-in-out shadow-inner">
+        </div>
+
+        <!-- Area tampilan angka -->
+        <div class="bg-pink-200 rounded-lg p-4 shadow-inner">
+            <input type="text" id="display" 
+                   class="w-full bg-transparent text-right text-5xl font-mono text-pink-900 border-0 outline-none p-2" 
+                   readonly 
+                   placeholder="0">
+        </div>
+
+        <!-- Grid tombol kalkulator -->
+        <div class="grid grid-cols-4 gap-3">
+
+            <!-- Tombol perintah -->
+            <button data-value="C" class="btn-calc text-2xl font-bold bg-red-300 hover:bg-red-200 rounded-lg p-5 shadow-md text-red-900">C</button>
+            <button data-value="DEL" class="btn-calc text-2xl font-bold bg-pink-300 hover:bg-pink-200 rounded-lg p-5 shadow-md text-pink-900">DEL</button>
+            <button data-value="%" class="btn-calc text-2xl font-bold bg-pink-300 hover:bg-pink-200 rounded-lg p-5 shadow-md text-pink-900">%</button>
+            <button data-value="/" class="btn-calc text-2xl font-bold bg-purple-300 hover:bg-purple-200 rounded-lg p-5 shadow-md text-purple-900">/</button>
+
+            <!-- Tombol angka -->
+            <button data-value="7" class="btn-calc text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">7</button>
+            <button data-value="8" class="btn-calc text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">8</button>
+            <button data-value="9" class="btn-calc text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">9</button>
+            <button data-value="*" class="btn-calc text-2xl font-bold bg-purple-300 hover:bg-purple-200 rounded-lg p-5 shadow-md text-purple-900">*</button>
+
+            <button data-value="4" class="btn-calc text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">4</button>
+            <button data-value="5" class="btn-calc text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">5</button>
+            <button data-value="6" class="btn-calc text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">6</button>
+            <button data-value="-" class="btn-calc text-2xl font-bold bg-purple-300 hover:bg-purple-200 rounded-lg p-5 shadow-md text-purple-900">-</button>
+
+            <button data-value="1" class="btn-calc text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">1</button>
+            <button data-value="2" class="btn-calc text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">2</button>
+            <button data-value="3" class="btn-calc text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">3</button>
+            <button data-value="+" class="btn-calc text-2xl font-bold bg-purple-300 hover:bg-purple-200 rounded-lg p-5 shadow-md text-purple-900">+</button>
+
+            <!-- Tombol bawah -->
+            <button data-value="0" class="btn-calc col-span-2 text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">0</button>
+            <button data-value="." class="btn-calc text-2xl font-bold bg-pink-200 hover:bg-pink-100 rounded-lg p-5 shadow-md text-pink-900">.</button>
+            <button data-value="=" class="btn-calc text-2xl font-bold bg-green-300 hover:bg-green-200 rounded-lg p-5 shadow-md text-green-900">=</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Event yang memastikan script dijalankan setelah halaman selesai dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const display = document.getElementById('display'); // Mengambil elemen layar kalkulator
+            const statusImage = document.getElementById('statusImage'); // Mengambil elemen gambar status
+            const buttons = document.querySelectorAll('.btn-calc'); // Mengambil semua tombol kalkulator
+
+            // URL gambar untuk status kalkulator
+            const imgNormal = 'https://placehold.co/400x100/FBCFE8/7E205F?text=Kalkulator+Riviera+1710624043';
+            const imgSuccess = 'https://placehold.co/400x100/86EFAC/14532D?text=Sukses!';
+            const imgError = 'https://placehold.co/400x100/FCA5A5/7F1D1D?text=Error!';
+
+            // Fungsi untuk mengganti gambar status
+            function changeImage(state) {
+                if (state === 'success') {
+                    statusImage.src = imgSuccess;
+                } else if (state === 'error') {
+                    statusImage.src = imgError;
+                } else {
+                    statusImage.src = imgNormal;
+                }
+            }
+
+            // Menghapus semua angka di layar
+            function clearDisplay() {
+                display.value = '';
+                changeImage('normal');
+            }
+
+            // Menghapus satu karakter terakhir di layar
+            function deleteLastChar() {
+                display.value = display.value.slice(0, -1);
+            }
+
+            // Menambahkan karakter yang ditekan ke layar kalkulator
+            function appendToDisplay(value) {
+                display.value += value;
+            }
+
+            // Menghitung ekspresi matematika yang ada di layar
+            function calculateResult() {
+                if (display.value === '') {
+                    changeImage('error');
+                    display.value = 'Kosong!';
+                    setTimeout(clearDisplay, 1500); // Menghapus layar setelah 1.5 detik
+                    return;
+                }
+
+                try {
+                    // Mengganti simbol % menjadi pembagian 100
+                    let result = eval(display.value.replace(/%/g, '/100'));
+                    
+                    // Jika hasil valid, tampilkan; jika tidak, dianggap error
+                    if (isFinite(result)) {
+                        display.value = result;
+                        changeImage('success');
+                    } else {
+                        throw new Error("Invalid");
+                    }
+
+                } catch (error) {
+                    display.value = 'Error';
+                    changeImage('error');
+                    setTimeout(clearDisplay, 1500);
+                }
+            }
+
+            // Event klik semua tombol
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const value = button.getAttribute('data-value');
+
+                    switch(value) {
+                        case 'C':
+                            clearDisplay();
+                            break;
+                        case 'DEL':
+                            deleteLastChar();
+                            break;
+                        case '=':
+                            calculateResult();
+                            break;
+                        default:
+                            if (statusImage.src === imgSuccess || statusImage.src === imgError) {
+                                clearDisplay();
+                            }
+                            appendToDisplay(value);
+                            break;
+                    }
+                });
+            });
+
+            // Event keyboard seperti kalkulator asli
+            document.addEventListener('keydown', (e) => {
+                const key = e.key;
+
+                if (/[0-9.+\-*/%]/.test(key)) {
+                    if (statusImage.src === imgSuccess || statusImage.src === imgError) {
+                        clearDisplay();
+                    }
+                    appendToDisplay(key);
+                } else if (key === 'Enter') {
+                    calculateResult();
+                } else if (key === 'Backspace') {
+                    deleteLastChar();
+                } else if (key === 'Escape') {
+                    clearDisplay();
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

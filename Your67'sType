@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>67 Animal Quiz — Tipe Binatang Apakah Kamu Saat Pake AI?</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Family -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between items-center p-4">
+
+  <!-- HEADER -->
+  <header class="w-full max-w-lg text-center my-4">
+    <div class="inline-block bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase mb-2">
+      67 Personality Quiz 🐾
+    </div>
+    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+      Tipe Binatang Apakah Kamu Pas Pake AI? 🤖
+    </h1>
+    <p class="text-xs text-slate-400 mt-1">
+      Cek seberapa kencang rem jempolmu sebelum pencet tombol Generate!
+    </p>
+  </header>
+
+  <!-- MAIN CARD -->
+  <main class="w-full max-w-lg glass-card rounded-3xl p-6 shadow-2xl relative my-auto">
+    
+    <!-- STEP 1: LANDING -->
+    <div id="step-landing" class="text-center space-y-5">
+      <div class="text-6xl my-4">🦘 🦜 🐱 🦅</div>
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        Jawab 4 pertanyaan kilat ini buat tahu kepribadian digital kamu dan seberapa sering kamu terjebak fenomena <b>Micro-Regret</b> pas pake AI!
+      </p>
+      <button onclick="startQuiz()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
+        Mulai Tes Sekarang! 🚀
+      </button>
+    </div>
+
+    <!-- STEP 2: QUIZ QUESTION -->
+    <div id="step-quiz" class="hidden space-y-4">
+      <div class="flex justify-between items-center text-xs font-semibold text-indigo-400 mb-2">
+        <span id="question-number">Pertanyaan 1/4</span>
+        <span>67 Pause Check ⏱️</span>
+      </div>
+
+      <h2 id="question-text" class="text-sm sm:text-base font-bold text-white leading-snug">
+        <!-- Question inserted via JS -->
+      </h2>
+
+      <div id="options-container" class="space-y-2.5 pt-2">
+        <!-- Options inserted via JS -->
+      </div>
+    </div>
+
+    <!-- STEP 3: RESULT -->
+    <div id="step-result" class="hidden text-center space-y-4">
+      <div class="p-6 rounded-2xl border text-left bg-slate-900/90 border-indigo-500/30" id="result-box">
+        <div id="result-emoji" class="text-6xl text-center mb-2">🦘</div>
+        <div id="result-title" class="text-lg font-extrabold text-center text-indigo-300 mb-1">TIPE KANGGURU IMPULSIF</div>
+        <div id="result-badge" class="text-[10px] text-center font-bold px-2 py-0.5 rounded-full w-max mx-auto mb-3 bg-rose-500/20 text-rose-300 border border-rose-500/30">RISIKO HIGH-IMPULSE</div>
+        <p id="result-desc" class="text-xs text-slate-300 leading-relaxed"></p>
+      </div>
+
+      <!-- INSIGHT BOX -->
+      <div class="bg-indigo-950/40 border border-indigo-800/40 p-4 rounded-xl text-left text-xs text-slate-300 space-y-1">
+        <span class="font-bold text-indigo-300 block">💡 Tips dari 67 Framework:</span>
+        <p class="text-[11px] text-slate-400">
+          AI pengerjaannya cuma 3 detik, tapi dampaknya bisa 3 minggu. Sebelum pencet Generate, luangkan <b>7 detik & tanya 6 hal etis</b> dulu ya!
+        </p>
+      </div>
+
+      <div class="flex gap-2">
+        <button onclick="resetQuiz()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 px-3 rounded-xl text-xs transition">
+          🔄 Coba Lagi
+        </button>
+        <a href="https://instagram.com" target="_blank" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-3 rounded-xl text-xs transition flex items-center justify-center gap-1">
+          <span>Share Hasil ke IG Story</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="w-full max-w-lg text-center my-4 text-xs text-slate-500">
+    <p>Campaign 67 — Building a Responsible Digital Society Through Ethical Technology</p>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    const questions = [
+      {
+        q: "Nemu foto temen lagi pose kocak, terus terlintas ide buat edit pake AI Image Generator. Apa reaksi pertama jempol kamu?",
+        options: [
+          { text: "Langsung edit & kirim ke grup WA tanpa pikir panjang. Niatnya kan becanda!", score: 1 },
+          { text: "Edit dulu, pas mau kirim agak ragu tapi tetep dipencet send.", score: 2 },
+          { text: "Tahan 7 detik dulu, chat temennya: 'Bro, foto lo boleh gue jadiin meme gak?'", score: 4 },
+          { text: "Edit buat simpenan sendiri aja, ga bakal di-share kalo ga ada izin.", score: 3 }
+        ]
+      },
+      {
+        q: "Lihat gambar buatan AI yang kelihatan believable banget di sosmed tentang rumor heboh. Apa yang kamu lakuin?",
+        options: [
+          { text: "Refleks repost / forward ke grup keluarga: 'Waduh gaes liat deh!'", score: 1 },
+          { text: "Kepo sih, tapi cuma dibaca sendiri tanpa di-share.", score: 3 },
+          { text: "Cek sumber aslinya dulu, ini fakta atau cuma AI-generated misleading content.", score: 4 },
+          { text: "Kirim ke temen deket sambil nanya 'Ini beneran ga sih?'", score: 2 }
+        ]
+      },
+      {
+        q: "Berapa lama biasanya waktu yang kamu butuhin buat mikir sebelum pencet tombol 'Generate' atau 'Share' konten AI?",
+        options: [
+          { text: "0 - 2 detik (Sensasi instan, jempol lebih cepat dari pikiran!)", score: 1 },
+          { text: "3 - 5 detik (Sempat mikir bentar tapi tetep diterusin)", score: 2 },
+          { text: "7 detik pas! (Pake rumus 67 Pause buat kroscek etika)", score: 4 },
+          { text: "Mikirnya lama banget sampe akhirnya gajadi di-post.", score: 3 }
+        ]
+      },
+      {
+        q: "Pernah ga ngerasa 'Aduh harusnya tadi ga gue share...' (Micro-Regret) gara-gara editan/konten AI?",
+        options: [
+          { text: "Sering banget! Suasana grup langsung hening atau temen baper.", score: 1 },
+          { text: "Pernah sekali-dua kali, kapok banget rasanya.", score: 2 },
+          { text: "Hampir pernah, tapi keburu ditarik/dihapus pesannya.", score: 3 },
+          { text: "Gapernah, karena selalu minta izin & kroscek dampak duluan.", score: 4 }
+        ]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let totalScore = 0;
+
+    function startQuiz() {
+      document.getElementById('step-landing').classList.add('hidden');
+      document.getElementById('step-quiz').classList.remove('hidden');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById('question-number').innerText = `Pertanyaan ${currentQuestion + 1}/${questions.length}`;
+      document.getElementById('question-text').innerText = q.q;
+
+      const container = document.getElementById('options-container');
+      container.innerHTML = '';
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = "w-full text-left text-xs bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500/50 p-3.5 rounded-xl transition text-slate-300 hover:text-white flex items-center gap-2";
+        btn.innerHTML = `<span>${opt.text}</span>`;
+        btn.onclick = () => selectOption(opt.score);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectOption(score) {
+      totalScore += score;
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('step-quiz').classList.add('hidden');
+      document.getElementById('step-result').classList.remove('hidden');
+
+      const emoji = document.getElementById('result-emoji');
+      const title = document.getElementById('result-title');
+      const badge = document.getElementById('result-badge');
+      const desc = document.getElementById('result-desc');
+
+      if (totalScore <= 6) {
+        emoji.innerText = "🦘";
+        title.innerText = "KANGGURU IMPULSIF";
+        badge.innerText = "RISIKO: HIGH IMPULSE ⚠️";
+        badge.className = "text-[10px] text-center font-bold px-2 py-0.5 rounded-full w-max mx-auto mb-3 bg-rose-500/20 text-rose-300 border border-rose-500/30";
+        desc.innerText = "Tangan kamu lebih cepat dari pikiran! Sering banget pencet Generate/Share dulu baru mikir belakangan. Kamu rentan banget kena Micro-Regret dan bikin grup canggung. Wajib pasang 'rem 7 detik' mulai sekarang!";
+      } else if (totalScore <= 10) {
+        emoji.innerText = "🦜";
+        title.innerText = "BEO FOMO";
+        badge.innerText = "RISIKO: NEED MORE CONTEXT 🟡";
+        badge.className = "text-[10px] text-center font-bold px-2 py-0.5 rounded-full w-max mx-auto mb-3 bg-amber-500/20 text-amber-300 border border-amber-500/30";
+        desc.innerText = "Niat kamu sebenernya cuma buat hiburan atau ikutan tren, tapi kadang lupa kroscek apakah temen kamu baper atau beritanya benar. Hati-hati, lelucon AI kamu bisa gak sengaja jadi rumor lho!";
+      } else if (totalScore <= 13) {
+        emoji.innerText = "🐱";
+        title.innerText = "KUCING TAHU BATAS";
+        badge.innerText = "STATUS: SAFE & BALANCED 🟢";
+        badge.className = "text-[10px] text-center font-bold px-2 py-0.5 rounded-full w-max mx-auto mb-3 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+        desc.innerText = "Kamu suka eksperimen pake AI, tapi kamu selalu curiga duluan kalau ada hal riskan. Kamu tahu kapan harus bercanda dan kapan harus minta izin duluan. Mantap!";
+      } else {
+        emoji.innerText = "🦅";
+        title.innerText = "ELANG PENGENDALI 67";
+        badge.innerText = "STATUS: MASTER OF MINDFUL AI 👑";
+        badge.className = "text-[10px] text-center font-bold px-2 py-0.5 rounded-full w-max mx-auto mb-3 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30";
+        desc.innerText = "Suhu etika digital! Kamu selalu menerapkan 67 Pause (Jeda 7 detik + 6 pertanyaan etis) sebelum bertindak. Jempol kamu berkelas, karya AI kamu aman dari masalah hukum & sosial!";
+      }
+    }
+
+    function resetQuiz() {
+      currentQuestion = 0;
+      totalScore = 0;
+      document.getElementById('step-result').classList.add('hidden');
+      document.getElementById('step-landing').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
